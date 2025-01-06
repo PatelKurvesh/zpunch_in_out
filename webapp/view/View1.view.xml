@@ -8,6 +8,11 @@
     <Page
         title="{i18n>title}"
     >
+    <headerContent>
+    <ToolbarSpacer ></ToolbarSpacer>
+    <Button icon="sap-icon://forward" press="onViewButtonPress"></Button>
+    
+    </headerContent>
         <VBox
             class="centerCardContainer"
             justifyContent="Center"

@@ -1,10 +1,11 @@
 sap.ui.define([
     "./App.controller",
     "sap/ndc/BarcodeScanner"
-], (BaseController, BarcodeScanner) => {
+], (AppController,
+	BarcodeScanner) => {
     "use strict";
 
-    return BaseController.extend("zpunchinout.controller.View1", {
+    return AppController.extend("zpunchinout.controller.View1", {
         onInit() {
             this.getModel("").setUseBatch(false);
         },
@@ -26,7 +27,7 @@ sap.ui.define([
                             method: "POST",
                             success: function (odata) {
                                
-                                MessageToast.show(odata.Punch.sResponsMsg)
+                               sap.m.MessageToast.show(odata.Punch.sResponsMsg)
                             }.bind(this),
                             error: function (error) {
                                 sap.m.MessageBox.warning(JSON.parse(error.responseText).error.message.value)
@@ -58,7 +59,7 @@ sap.ui.define([
                             method: "POST",
                             success: function (odata) {
                                
-                                MessageToast.show(odata.Punch.sResponsMsg)
+                                sap.m.MessageToast.show(odata.Punch.sResponsMsg)
                             }.bind(this),
                             error: function (error) {
                                 sap.m.MessageBox.warning(JSON.parse(error.responseText).error.message.value)
@@ -72,6 +73,11 @@ sap.ui.define([
                     console.error("Barcode Scanning Error:", error);
                 }
             );
+        },
+
+
+        onViewButtonPress: function(){
+            this.getRouter().navTo("PunchingDetails");
         }
     });
 });
