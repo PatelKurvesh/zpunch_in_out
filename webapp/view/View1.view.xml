@@ -8,42 +8,22 @@
     	<f:Card class="sapUiMediumMargin" width="300px">
 		<f:header>
 			<card:Header
-				title="Buy bus ticket on-line"
-				subtitle="Buy a single-ride ticket for a date"
-				iconSrc="sap-icon://bus-public-transport" />
+				title="Punch In-Out"
+				subtitle="Good Morning Guys"
+				iconSrc="/image/logo.JPG" /> 
 		</f:header>
 		<f:content>
 			<VBox
 				height="110px"
 				class="sapUiSmallMargin"
-				justifyContent="SpaceBetween">
-				<HBox justifyContent="SpaceBetween">
-					<ComboBox
-						width="120px"
-						placeholder="From City"
-						items="{
-							path: 'cities>/cities',
-							sorter: { path: 'text' }
-						}">
-						<core:Item key="{cities>key}" text="{cities>text}" />
-					</ComboBox>
-					<ComboBox
-						width="120px"
-						placeholder="To City"
-						items="{
-							path: 'cities>/cities',
-							sorter: { path: 'text' }
-						}">
-						<core:Item key="{cities>key}" text="{cities>text}" />
-					</ComboBox>
+				justifyContent="SpaceBetween"
+				width="100%">
+				<HBox renderType="Bare" justifyContent="SpaceBetween">
+					<Button text="Punch In" type="Accept" width="100%"></Button>
+					
 				</HBox>
 				<HBox renderType="Bare" justifyContent="SpaceBetween">
-					<DatePicker width="200px" placeholder="Choose Date ..." />
-					<Button
-						text="Book"
-						press=".onBookPress"
-						type="Emphasized"
-						class="sapUiTinyMarginBegin" />
+					<Button text="Punch Out" type="Reject" width="100%"></Button>
 				</HBox>
 			</VBox>
 		</f:content>
