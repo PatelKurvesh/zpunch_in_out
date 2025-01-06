@@ -1,6 +1,53 @@
 <mvc:View controllerName="zpunchinout.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+	xmlns:card="sap.f.cards"
+	xmlns:core="sap.ui.core">
     <Page id="page" title="{i18n>title}">
+    	<f:Card class="sapUiMediumMargin" width="300px">
+		<f:header>
+			<card:Header
+				title="Buy bus ticket on-line"
+				subtitle="Buy a single-ride ticket for a date"
+				iconSrc="sap-icon://bus-public-transport" />
+		</f:header>
+		<f:content>
+			<VBox
+				height="110px"
+				class="sapUiSmallMargin"
+				justifyContent="SpaceBetween">
+				<HBox justifyContent="SpaceBetween">
+					<ComboBox
+						width="120px"
+						placeholder="From City"
+						items="{
+							path: 'cities>/cities',
+							sorter: { path: 'text' }
+						}">
+						<core:Item key="{cities>key}" text="{cities>text}" />
+					</ComboBox>
+					<ComboBox
+						width="120px"
+						placeholder="To City"
+						items="{
+							path: 'cities>/cities',
+							sorter: { path: 'text' }
+						}">
+						<core:Item key="{cities>key}" text="{cities>text}" />
+					</ComboBox>
+				</HBox>
+				<HBox renderType="Bare" justifyContent="SpaceBetween">
+					<DatePicker width="200px" placeholder="Choose Date ..." />
+					<Button
+						text="Book"
+						press=".onBookPress"
+						type="Emphasized"
+						class="sapUiTinyMarginBegin" />
+				</HBox>
+			</VBox>
+		</f:content>
+	</f:Card>
+
     </Page>
 </mvc:View>
