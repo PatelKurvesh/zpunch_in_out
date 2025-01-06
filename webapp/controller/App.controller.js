@@ -4,7 +4,10 @@ sap.ui.define([
   "use strict";
 
   return BaseController.extend("zpunchinout.controller.App", {
-      onInit() {
-      }
+    onInit() {
+    },
+    getModel: function (sName) {
+      return sName === "" ? this.getOwnerComponent().getModel() : this.getOwnerComponent().getModel(sName);
+    },
   });
 });

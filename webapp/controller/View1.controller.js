@@ -1,32 +1,77 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./App.controller",
     "sap/ndc/BarcodeScanner"
-], (Controller, BarcodeScanner) => {
+], (BaseController, BarcodeScanner) => {
     "use strict";
 
-    return Controller.extend("zpunchinout.controller.View1", {
+    return BaseController.extend("zpunchinout.controller.View1", {
         onInit() {
+            this.getModel("").setUseBatch(false);
         },
 
-        onPunchInButtonPress : function(){
+        onPunchInButtonPress: function () {
             BarcodeScanner.scan(
                 function (result) {
                     if (result.cancelled) {
                         sap.m.MessageToast.show("Scanning cancelled.");
                     } else {
-                        sap.m.MessageToast.show("Scanned Barcode: " + result.text);
-                        // Handle the scanned result (e.g., send it to the backend or display it in the UI)
+                        var sText = result.text;
+                        var empId = parseInt(sText.split(":")[0])
+                        var oModel = this.getModel("");
+                        oModel.callFunction("/Punch", {
+                            urlParameters: {
+                                "Action": "IN",
+                                "EmpId": empId
+                            },
+                            method: "POST",
+                            success: function (odata) {
+                               
+                                MessageToast.show(odata.Punch.sResponsMsg)
+                            }.bind(this),
+                            error: function (error) {
+                                sap.m.MessageBox.warning(JSON.parse(error.responseText).error.message.value)
+                            }
+                        })
                         console.log("Scanned Result:", result.text);
                     }
-                },
+                }.bind(this),
                 function (error) {
                     sap.m.MessageToast.show("Scanning failed: " + error);
                     console.error("Barcode Scanning Error:", error);
                 }
             );
         },
-        onPunchOutButtonPress:function(){
-
+        onPunchOutButtonPress: function () {
+            BarcodeScanner.scan(
+                function (result) {
+                    if (result.cancelled) {
+                        sap.m.MessageToast.show("Scanning cancelled.");
+                    } else {
+                        var sText = result.text;
+                        var empId = parseInt(sText.split(":")[0])
+                        var oModel = this.getModel("");
+                        oModel.callFunction("/Punch", {
+                            urlParameters: {
+                                "Action": "OUT",
+                                "EmpId": empId
+                            },
+                            method: "POST",
+                            success: function (odata) {
+                               
+                                MessageToast.show(odata.Punch.sResponsMsg)
+                            }.bind(this),
+                            error: function (error) {
+                                sap.m.MessageBox.warning(JSON.parse(error.responseText).error.message.value)
+                            }
+                        })
+                        console.log("Scanned Result:", result.text);
+                    }
+                }.bind(this),
+                function (error) {
+                    sap.m.MessageToast.show("Scanning failed: " + error);
+                    console.error("Barcode Scanning Error:", error);
+                }
+            );
         }
     });
 });

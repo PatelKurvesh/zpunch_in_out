@@ -4,10 +4,8 @@
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:card="sap.f.cards"
-	   xmlns:ndc="sap.ndc"
 >
     <Page
-        id="page"
         title="{i18n>title}"
     >
         <VBox

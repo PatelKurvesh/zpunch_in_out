@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
-
 specVersion: "3.1"
 metadata:
   name: zpunchinout
@@ -9,7 +7,7 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        ignoreCertError: false
         ui5:
           path:
             - /resources
@@ -18,8 +16,13 @@ server:
         backend:
           - scp: true
             path: /odata
-            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com
+            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com/
             destination: ZPUNCHSRV
+            authenticationType: NoAuthentication
+          - path: /odata
+            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com/
+            destination: ZPUNCHSRV
+            authenticationType: NoAuthentication
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -37,7 +40,11 @@ server:
         mountPath: /
         services:
           - urlPath: /odata/v2/odata
+            generateMockData: true
+            metadataXmlPath: ./webapp/localService/metadata.xml
+            mockdataRootPath: ./webapp/localService/data
+          - urlPath: odata/v2/odata/
             metadataPath: ./webapp/localService/metadata.xml
-            mockdataPath: ./webapp/localService/data
+            mockdataPath: ./webapp/localService/mockdata
             generateMockData: true
         annotations: []
