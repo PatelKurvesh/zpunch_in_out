@@ -31,7 +31,7 @@ server:
         ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
         backend:
           - path: /odata
-            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com/
+            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com
             destination: ZPUNCHSRV
             authenticationType: NoAuthentication
     - name: sap-fe-mockserver

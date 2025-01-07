@@ -15,12 +15,20 @@ server:
           url: https://ui5.sap.com
         backend:
           - scp: true
-            path: /odata
-            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com/
+            path: /odata/v2/odata/
+            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com
             destination: ZPUNCHSRV
             authenticationType: NoAuthentication
           - path: /odata
             url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com/
+            destination: ZPUNCHSRV
+            authenticationType: NoAuthentication
+          - path: /odata/v2/odata/
+            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com/
+            destination: ZPUNCHSRV
+            authenticationType: NoAuthentication
+          - path: /odata/v2/odata/
+            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com
             destination: ZPUNCHSRV
             authenticationType: NoAuthentication
     - name: fiori-tools-appreload
@@ -44,6 +52,10 @@ server:
             metadataXmlPath: ./webapp/localService/metadata.xml
             mockdataRootPath: ./webapp/localService/data
           - urlPath: odata/v2/odata/
+            metadataPath: ./webapp/localService/metadata.xml
+            generateMockData: true
+            mockdataRootPath: ./webapp/localService/mockdata
+          - urlPath: /odata/v2/odata/
             metadataPath: ./webapp/localService/metadata.xml
             mockdataPath: ./webapp/localService/mockdata
             generateMockData: true

@@ -14,11 +14,15 @@
             <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
                 <EntitySet Name="Employees" EntityType="timetracker.srv.service.TIME_TRACKER_SRV.Employees"/>
                 <EntitySet Name="PunchingDetails" EntityType="timetracker.srv.service.TIME_TRACKER_SRV.PunchingDetails"/>
-                <EntitySet Name="Leaves" EntityType="timetracker.srv.service.TIME_TRACKER_SRV.Leaves"/>
+                <EntitySet Name="LeaveBalances" EntityType="timetracker.srv.service.TIME_TRACKER_SRV.LeaveBalances"/>
                 <EntitySet Name="LeaveRequests" EntityType="timetracker.srv.service.TIME_TRACKER_SRV.LeaveRequests"/>
                 <EntitySet Name="EmployeePunchingDetails" EntityType="timetracker.srv.service.TIME_TRACKER_SRV.EmployeePunchingDetails"/>
                 <FunctionImport Name="Punch" ReturnType="timetracker.srv.service.TIME_TRACKER_SRV.return_timetracker_srv_service_TIME_TRACKER_SRV_Punch" m:HttpMethod="POST">
                     <Parameter Name="Action" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="EmpId" Type="Edm.Int32" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ApproveLeave" ReturnType="timetracker.srv.service.TIME_TRACKER_SRV.return_timetracker_srv_service_TIME_TRACKER_SRV_ApproveLeave" m:HttpMethod="POST">
+                    <Parameter Name="LeaveType" Type="Edm.String" Mode="In" Nullable="true"/>
                     <Parameter Name="EmpId" Type="Edm.Int32" Mode="In" Nullable="true"/>
                 </FunctionImport>
                 <FunctionImport Name="EmployeeF4" ReturnType="timetracker.srv.service.TIME_TRACKER_SRV.return_timetracker_srv_service_TIME_TRACKER_SRV_EmployeeF4" m:HttpMethod="GET"/>
@@ -26,9 +30,9 @@
                     <End Role="PunchingDetails" EntitySet="PunchingDetails"/>
                     <End Role="Employees" EntitySet="Employees"/>
                 </AssociationSet>
-                <AssociationSet Name="LeaveRequests_TYPE" Association="timetracker.srv.service.TIME_TRACKER_SRV.LeaveRequests_TYPE">
-                    <End Role="LeaveRequests" EntitySet="LeaveRequests"/>
-                    <End Role="Leaves" EntitySet="Leaves"/>
+                <AssociationSet Name="LeaveBalances_EMP" Association="timetracker.srv.service.TIME_TRACKER_SRV.LeaveBalances_EMP">
+                    <End Role="LeaveBalances" EntitySet="LeaveBalances"/>
+                    <End Role="Employees" EntitySet="Employees"/>
                 </AssociationSet>
                 <AssociationSet Name="LeaveRequests_APPLIED_BY" Association="timetracker.srv.service.TIME_TRACKER_SRV.LeaveRequests_APPLIED_BY">
                     <End Role="LeaveRequests" EntitySet="LeaveRequests"/>
@@ -58,26 +62,27 @@
                 <Property Name="PUNCH_IN" Type="Edm.String"/>
                 <Property Name="PUNCH_OUT" Type="Edm.String"/>
             </EntityType>
-            <EntityType Name="Leaves">
+            <EntityType Name="LeaveBalances">
                 <Key>
-                    <PropertyRef Name="LEAVE_ID"/>
+                    <PropertyRef Name="LEAVE_BALANCE_ID"/>
                 </Key>
-                <Property Name="LEAVE_ID" Type="Edm.String" Nullable="false"/>
-                <Property Name="TYPE" Type="Edm.String"/>
-                <Property Name="TOTAL_COUNT" Type="Edm.Int32"/>
+                <Property Name="LEAVE_BALANCE_ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="TOTAL_LEAVE_COUNT" Type="Edm.Int32"/>
+                <Property Name="AVAILABLE_LEAVE_COUNT" Type="Edm.Int32"/>
+                <NavigationProperty Name="EMP" Relationship="timetracker.srv.service.TIME_TRACKER_SRV.LeaveBalances_EMP" FromRole="LeaveBalances" ToRole="Employees"/>
+                <Property Name="EMP_EMP_ID" Type="Edm.Int32"/>
             </EntityType>
             <EntityType Name="LeaveRequests">
                 <Key>
                     <PropertyRef Name="LEAVE_REQUEST_ID"/>
                 </Key>
                 <Property Name="LEAVE_REQUEST_ID" Type="Edm.Guid" Nullable="false"/>
-                <NavigationProperty Name="TYPE" Relationship="timetracker.srv.service.TIME_TRACKER_SRV.LeaveRequests_TYPE" FromRole="LeaveRequests" ToRole="Leaves"/>
-                <Property Name="TYPE_LEAVE_ID" Type="Edm.String"/>
                 <NavigationProperty Name="APPLIED_BY" Relationship="timetracker.srv.service.TIME_TRACKER_SRV.LeaveRequests_APPLIED_BY" FromRole="LeaveRequests" ToRole="Employees"/>
                 <Property Name="APPLIED_BY_EMP_ID" Type="Edm.Int32"/>
                 <Property Name="FROM_DATE" Type="Edm.String"/>
                 <Property Name="TO_DATE" Type="Edm.String"/>
-                <Property Name="STATUS" Type="Edm.String"/>
+                <Property Name="TYPE" Type="Edm.String"/>
+                <Property Name="PRIORITY" Type="Edm.String"/>
             </EntityType>
             <EntityType Name="EmployeePunchingDetails">
                 <Key>
@@ -96,6 +101,7 @@
                 <Property Name="ARRIVAL_STATUS" Type="Edm.String"/>
             </EntityType>
             <ComplexType Name="return_timetracker_srv_service_TIME_TRACKER_SRV_Punch"/>
+            <ComplexType Name="return_timetracker_srv_service_TIME_TRACKER_SRV_ApproveLeave"/>
             <ComplexType Name="return_timetracker_srv_service_TIME_TRACKER_SRV_EmployeeF4"/>
             <Association Name="PunchingDetails_EMP_CODE">
                 <End Role="PunchingDetails" Type="timetracker.srv.service.TIME_TRACKER_SRV.PunchingDetails" Multiplicity="*"/>
@@ -109,15 +115,15 @@
                     </Dependent>
                 </ReferentialConstraint>
             </Association>
-            <Association Name="LeaveRequests_TYPE">
-                <End Role="LeaveRequests" Type="timetracker.srv.service.TIME_TRACKER_SRV.LeaveRequests" Multiplicity="*"/>
-                <End Role="Leaves" Type="timetracker.srv.service.TIME_TRACKER_SRV.Leaves" Multiplicity="0..1"/>
+            <Association Name="LeaveBalances_EMP">
+                <End Role="LeaveBalances" Type="timetracker.srv.service.TIME_TRACKER_SRV.LeaveBalances" Multiplicity="*"/>
+                <End Role="Employees" Type="timetracker.srv.service.TIME_TRACKER_SRV.Employees" Multiplicity="0..1"/>
                 <ReferentialConstraint>
-                    <Principal Role="Leaves">
-                        <PropertyRef Name="LEAVE_ID"/>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="EMP_ID"/>
                     </Principal>
-                    <Dependent Role="LeaveRequests">
-                        <PropertyRef Name="TYPE_LEAVE_ID"/>
+                    <Dependent Role="LeaveBalances">
+                        <PropertyRef Name="EMP_EMP_ID"/>
                     </Dependent>
                 </ReferentialConstraint>
             </Association>
@@ -149,6 +155,9 @@
                         <PropertyValue Property="Updatable" Bool="false"/>
                     </Record>
                 </Annotation>
+            </Annotations>
+            <Annotations Target="timetracker.srv.service.TIME_TRACKER_SRV.LeaveBalances/LEAVE_BALANCE_ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
             </Annotations>
             <Annotations Target="timetracker.srv.service.TIME_TRACKER_SRV.LeaveRequests/LEAVE_REQUEST_ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>

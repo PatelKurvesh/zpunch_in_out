@@ -17,7 +17,7 @@ server:
           url: https://ui5.sap.com
         backend:
           - path: /odata
-            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com/
+            url: https://8900e4b3trial-dev-timetracker-srv.cfapps.us10-001.hana.ondemand.com
             destination: ZPUNCHSRV
             authenticationType: NoAuthentication
     - name: fiori-tools-appreload
