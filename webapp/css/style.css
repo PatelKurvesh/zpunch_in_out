@@ -1,39 +1,6 @@
-/* Enter your custom styles here */
-/* Center the card vertically and horizontally */
+
 .centerCardContainer {
-    background-color: #e6f7ff; /* Light blue background */
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Style for the Card */
-.customCard {
-    background-color: #ffffff; /* White background for card */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-/* Style for Buttons */
-.customButton {
-    border-radius: 5px; /* Rounded button edges */
-    font-weight: bold;
-    color: #ffffff; /* White text */
-}
-
-/* Specific styles for the Accept and Reject button */
-.customButton[type="Accept"] {
-    background-color: #4caf50; /* Green for Punch In */
-}
-
-.customButton[type="Reject"] {
-    background-color: #f44336; /* Red for Punch Out */
-}
-
-/* Page Background */
-.customPage {
-    background-color: #e6f7ff; /* Light blue theme for the page */
+    background-color: #005075; 
     height: 100%;
     display: flex;
     justify-content: center;

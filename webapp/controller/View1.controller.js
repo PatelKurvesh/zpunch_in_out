@@ -2,7 +2,7 @@ sap.ui.define([
     "./App.controller",
     "sap/ndc/BarcodeScanner"
 ], (AppController,
-	BarcodeScanner) => {
+    BarcodeScanner) => {
     "use strict";
 
     return AppController.extend("zpunchinout.controller.View1", {
@@ -26,8 +26,9 @@ sap.ui.define([
                             },
                             method: "POST",
                             success: function (odata) {
-                               
-                               sap.m.MessageToast.show(odata.Punch.sResponsMsg)
+
+                                sap.m.MessageToast.show(odata.Punch.sResponsMsg)
+                                this._showCelebrationGif("/image/punchin.gif");
                             }.bind(this),
                             error: function (error) {
                                 sap.m.MessageBox.warning(JSON.parse(error.responseText).error.message.value)
@@ -58,8 +59,9 @@ sap.ui.define([
                             },
                             method: "POST",
                             success: function (odata) {
-                               
+
                                 sap.m.MessageToast.show(odata.Punch.sResponsMsg)
+                                this._showCelebrationGif("/image/punchout.gif");
                             }.bind(this),
                             error: function (error) {
                                 sap.m.MessageBox.warning(JSON.parse(error.responseText).error.message.value)
@@ -75,8 +77,28 @@ sap.ui.define([
             );
         },
 
+        _showCelebrationGif: function (sGifPath) {
+            var oVBox = this.byId("punchVBox");
+            var oCelebrationImage = this.byId("celebrationImage");
+            var oCelebrationVBox = this.byId("celebrationVBox");
+        
+            // Update the GIF source dynamically
+            oCelebrationImage.setSrc(sGifPath);
+        
+            // Hide the punch-in/out interface and show the celebration
+            oVBox.setVisible(false);
+            oCelebrationVBox.setVisible(true);
+        
+            // Set a timeout to revert back after 3-5 seconds
+            setTimeout(function () {
+                oVBox.setVisible(true);
+                oCelebrationVBox.setVisible(false);
+            }, 3000); // 3 seconds
+        },
 
-        onViewButtonPress: function(){
+
+
+        onButtonPress: function (oEvent) {
             this.getRouter().navTo("PunchingDetails");
         }
     });

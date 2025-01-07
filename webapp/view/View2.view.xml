@@ -6,71 +6,93 @@
     height="100%"
     busyIndicatorDelay="0"
 >
-    <Page showNavButton="true" navButtonPress="onBackForward">
-	<Button text="Create Employee" class="sapUiMediumMargin" type="Emphasized" icon="sap-icon://add-employee" press="onCreateEmployee"></Button>
+    <Page
+        showNavButton="true"
+        navButtonPress="onPageNavButtonPress"
+    >
         <Table
             headerText="Products"
             items="{/EmployeePunchingDetails}"
+            class="sapUiResponsiveContentPadding"
         >
+            <headerToolbar>
+                <OverflowToolbar>
+                    <Title text="Punching Details ({jsonModel>/count})" />
+                    <ToolbarSpacer />
+                    <Button
+                        text="Create Employee"
+                        class="sapUiMediumMargin"
+                        type="Emphasized"
+                        icon="sap-icon://add"
+                        press="onCreateEmployeeButtonPress"
+                    />
+                </OverflowToolbar>
+            </headerToolbar>
             <columns>
                 <Column mergeDuplicates="true">
                     <header>
                         <Text text="Employee Name" />
                     </header>
                 </Column>
-               
-				<Column hAlign="Center">
-                    <header>
-                        <Text text="Punch Date" />
-                    </header>
-                </Column>
-				<Column hAlign="Center">
-                    <header>
-                        <Text text="Gender" />
-                    </header>
-                </Column>
                 <Column
-                    minScreenWidth="Tablet"
-                    demandPopin="true"
                     hAlign="Center"
-                >
-                    <header>
-                        <Text text="PUNCH_IN" />
-                    </header>
-                </Column>
-                <Column
-                    minScreenWidth="Tablet"
-                    demandPopin="true"
-                    hAlign="Center"
-					
+                    mergeDuplicates="true"
                 >
                     <header>
                         <Text text="Email" />
                     </header>
                 </Column>
+
                 <Column hAlign="Center">
                     <header>
-                        <Text text="ARRIVAL_STATUS" />
+                        <Text text="Punch Date" />
                     </header>
                 </Column>
-                
+                <Column
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
+                    hAlign="Center"
+                >
+                    <header>
+                        <Text text="Punch In" />
+                    </header>
+                </Column>
+                <Column
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
+                    hAlign="Center"
+                >
+                    <header>
+                        <Text text="Punch Out" />
+                    </header>
+                </Column>
+
+                <Column hAlign="Center">
+                    <header>
+                        <Text text="Arrival Status" />
+                    </header>
+                </Column>
             </columns>
             <ColumnListItem vAlign="Middle">
-                <Text text="{FIRST_NAME} {LAST_NAME}" />
-                <Text text="{PUNCH_DATE}" />
-                <Text text="{GENDER}" />
-                <ObjectIdentifier
-                    title="{PUNCH_IN}" 
-                    text="To {PUNCH_OUT}"
+                <Label
+                    text="{FIRST_NAME} {LAST_NAME}"
+                    design="Bold"
                 />
-                <Text text="{EMAIL}" width="100%" />
+                <Text text="{EMAIL}" />
+                <Label
+                    text="{PUNCH_DATE}"
+                    design="Bold"
+                />
+                <Text text="{PUNCH_IN}" />
+                <Text text="{PUNCH_OUT}" />
+
                 <ObjectNumber
-				number="{ARRIVAL_STATUS}" 
-				state="{
+                    number="{ARRIVAL_STATUS}"
+                    state="{
 					path: 'ARRIVAL_STATUS', 
 					formatter: '.formatter.formatArrivalStatus' 
 				}"
-				/>
+                />
 
                 <Text text="{PHONE_NO}" />
             </ColumnListItem>

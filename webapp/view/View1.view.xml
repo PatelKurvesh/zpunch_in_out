@@ -5,14 +5,16 @@
     xmlns:f="sap.f"
     xmlns:card="sap.f.cards"
 >
-    <Page
-        title="{i18n>title}"
-    >
-    <headerContent>
-    <ToolbarSpacer ></ToolbarSpacer>
-    <Button icon="sap-icon://forward" press="onViewButtonPress"></Button>
-    
-    </headerContent>
+    <Page title="{i18n>title}">
+        <headerContent>
+            <ToolbarSpacer />
+            <Button
+                icon="sap-icon://forward"
+                press="onButtonPress"
+            />
+        </headerContent>
+       
+
         <VBox
             class="centerCardContainer"
             justifyContent="Center"
@@ -20,52 +22,79 @@
             width="100%"
             height="100%"
         >
-            <f:Card
-                class="sapUiMediumMargin"
-                width="300px"
+            <VBox
+                id="punchVBox"
+                visible="true"
+                class="centerCardContainer"
+                justifyContent="Center"
+                alignItems="Center"
+                width="100%"
+                height="100%"
             >
-                <f:header>
-                    <card:Header
-                        title="Punch In-Out"
-                        subtitle="Good Morning Guys"
-                        iconSrc="/image/logo.JPG"
-                    />
-                </f:header>
-                <f:content>
-                    <VBox
-                        height="110px"
-                        class="sapUiSmallMargin"
-                        justifyContent="SpaceBetween"
-                        width="100%"
-                    >
-                        <HBox
-                            renderType="Bare"
+                <f:Card
+                    class="sapUiMediumMargin"
+                    width="300px"
+                >
+                    <f:header>
+                        <card:Header
+                            title="Punch In-Out"
+                            subtitle="Good Morning Guys"
+                            iconSrc="/image/logo.JPG"
+                        />
+                    </f:header>
+                    <f:content>
+                        <VBox
+                            height="110px"
+                            class="sapUiSmallMargin"
                             justifyContent="SpaceBetween"
+                            width="100%"
                         >
-                            <Button
-                                text="Punch In"
-                                type="Accept"
-                                width="100%"
-								press="onPunchInButtonPress"
-                                icon="sap-icon://qr-code"
-                            />
-							
-                        </HBox>
-                        <HBox
-                            renderType="Bare"
-                            justifyContent="SpaceBetween"
-                        >
-                            <Button
-                                text="Punch Out"
-                                type="Reject"
-                                width="100%"
-								press="onPunchOutButtonPress"
-                                icon="sap-icon://qr-code"
-                            />
-                        </HBox>
-                    </VBox>
-                </f:content>
-            </f:Card>
+                            <HBox
+                                renderType="Bare"
+                                justifyContent="SpaceBetween"
+                            >
+                                <Button
+                                    text="Punch In"
+                                    type="Accept"
+                                    width="100%"
+                                    press="onPunchInButtonPress"
+                                    icon="sap-icon://qr-code"
+                                />
+                            </HBox>
+                            <HBox
+                                renderType="Bare"
+                                justifyContent="SpaceBetween"
+                            >
+                                <Button
+                                    text="Punch Out"
+                                    type="Reject"
+                                    width="100%"
+                                    press="onPunchOutButtonPress"
+                                    icon="sap-icon://qr-code"
+                                />
+                            </HBox>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+            </VBox>
+
+            <!-- Celebration GIF Container -->
+            <VBox
+                id="celebrationVBox"
+                visible="false"
+                justifyContent="Center"
+                alignItems="Center"
+                width="100%"
+                height="100%"
+            >
+                <Image
+                    id="celebrationImage"
+                    src=""
+                    width="300px"
+                    height="300px"
+                    alt="Celebration"
+                />
+            </VBox>
         </VBox>
     </Page>
 </mvc:View>
