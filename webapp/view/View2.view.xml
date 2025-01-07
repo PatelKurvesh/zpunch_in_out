@@ -17,7 +17,7 @@
         >
             <headerToolbar>
                 <OverflowToolbar>
-                    <Title text="Punching Details ({jsonModel>/count})" />
+                    <Title text="Time Tracking Details ({jsonModel>/count})" />
                     <ToolbarSpacer />
                     <Button
                         text="Create Employee"

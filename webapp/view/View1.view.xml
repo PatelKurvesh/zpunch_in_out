@@ -23,8 +23,7 @@
             height="100%"
         >
             <VBox
-                id="punchVBox"
-                visible="true"
+                id="idpunchVBox"
                 class="centerCardContainer"
                 justifyContent="Center"
                 alignItems="Center"
@@ -73,6 +72,18 @@
                                     icon="sap-icon://qr-code"
                                 />
                             </HBox>
+                            <HBox
+                                renderType="Bare"
+                                justifyContent="SpaceBetween"
+                            >
+                                <Button
+                                    text="Leave Request"
+                                    type="Attention"
+                                    width="100%"
+                                    press="onLeaveRequestButtonPress"
+                                    icon="sap-icon://create-leave-request"
+                                />
+                            </HBox>
                         </VBox>
                     </f:content>
                 </f:Card>
@@ -80,7 +91,7 @@
 
             <!-- Celebration GIF Container -->
             <VBox
-                id="celebrationVBox"
+                id="idcelebrationVBox"
                 visible="false"
                 justifyContent="Center"
                 alignItems="Center"
@@ -88,7 +99,7 @@
                 height="100%"
             >
                 <Image
-                    id="celebrationImage"
+                    id="idcelebrationImage"
                     src=""
                     width="300px"
                     height="300px"

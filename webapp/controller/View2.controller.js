@@ -63,10 +63,15 @@ sap.ui.define([
                         const oModel = this.getOwnerComponent().getModel();
                         oModel.create("/Employees", oData, {
                                 success: function (odata) {
-                                        MessageToast.show("Employee created successfully!");
+                                        sap.m.MessageToast.show("Employee created successfully!");
+                                        this.frag.close();
+                                        if (this.frag) {
+                                                this.frag.destroy();
+                                                this.frag = null;
+                                        }
                                 },
                                 error: function (error) {
-                                        MessageToast.show("Error creating employee.");
+                                        sap.m.MessageToast.show("Error creating employee.");
                                 }
                         });
                 },

@@ -78,17 +78,19 @@ sap.ui.define([
         },
 
         _showCelebrationGif: function (sGifPath) {
-            var oVBox = this.byId("punchVBox");
-            var oCelebrationImage = this.byId("celebrationImage");
-            var oCelebrationVBox = this.byId("celebrationVBox");
-        
+            var oVBox = this.byId("idpunchVBox");
+            var oCelebrationImage = this.byId("idcelebrationImage");
+            var oCelebrationVBox = this.byId("idcelebrationVBox");
+
             // Update the GIF source dynamically
-            oCelebrationImage.setSrc(sGifPath);
-        
+            var oURI = new sap.ui.core.URI(sGifPath);
+            oCelebrationImage.setSrc(oURI);
+            
+
             // Hide the punch-in/out interface and show the celebration
             oVBox.setVisible(false);
             oCelebrationVBox.setVisible(true);
-        
+
             // Set a timeout to revert back after 3-5 seconds
             setTimeout(function () {
                 oVBox.setVisible(true);
@@ -100,6 +102,10 @@ sap.ui.define([
 
         onButtonPress: function (oEvent) {
             this.getRouter().navTo("PunchingDetails");
+        },
+
+        onLeaveRequestButtonPress: function (oEvent) {
+
         }
     });
 });
