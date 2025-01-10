@@ -1,8 +1,9 @@
 sap.ui.define([
         "./App.controller",
-        "../formatter/formatter"
+        "../formatter/formatter",
+        "sap/m/MessageToast"
 ], function (
-        Controller, Formatter
+        Controller, Formatter, MessageToast
 ) {
         "use strict";
 
@@ -13,10 +14,10 @@ sap.ui.define([
 
                 formatter: Formatter,
                 onInit: function () {
-                        this.getCount();
+                        this._getCount();
                 },
 
-                getCount: function () {
+                _getCount: function () {
                         var oModel = this.getOwnerComponent().getModel();
                         oModel.read("/EmployeePunchingDetails/$count", {
                                 success: function (odata) {
@@ -33,13 +34,13 @@ sap.ui.define([
 
 
                 onCreateEmployeeButtonPress: function () {
-                        if (!this.frag) {
+                        if (!this._frag) {
 
-                                this.frag = sap.ui.xmlfragment("zpunchinout.fragments.create", this);
-                                this.getView().addDependent(this.frag);
-                                this.frag.open();
+                                this._frag = sap.ui.xmlfragment("zpunchinout.fragments.create", this);
+                                this.getView().addDependent(this._frag);
+                                this._frag.open();
                         } else {
-                                this.frag.open()
+                                this._frag.open()
                         }
                 },
 
@@ -59,33 +60,49 @@ sap.ui.define([
                                 return;
                         }
 
+
                         // Call the OData service to save the data
                         const oModel = this.getOwnerComponent().getModel();
                         oModel.create("/Employees", oData, {
                                 success: function (odata) {
                                         sap.m.MessageToast.show("Employee created successfully!");
-                                        this.frag.close();
-                                        if (this.frag) {
-                                                this.frag.destroy();
-                                                this.frag = null;
-                                        }
-                                },
+                                        this.onCancelDialog();
+                                }.bind(this),
                                 error: function (error) {
                                         sap.m.MessageToast.show("Error creating employee.");
                                 }
                         });
                 },
 
+
                 onCancelDialog: function () {
-                        this.frag.close();
-                        if (this.frag) {
-                                this.frag.destroy();
-                                this.frag = null;
+                        this._frag.close();
+                        if (this._frag) {
+                                this._frag.destroy();
+                                this._frag = null;
                         }
                 },
 
                 onPageNavButtonPress: function (oEvent) {
                         this.getRouter().navTo("RouteView1");
+                },
+
+                onButtonPressEmployee: function () {
+                        this.getRouter().navTo("EmployeeDetail")
+                },
+
+                formatCustomDate: function (sDate) {
+                        if (!sDate) {
+                                return "";
+                        }
+
+                        // Parse the input date string "01/01/2025"
+                        var aParts = sDate.split("/");
+                        var oDate = new Date(`${aParts[2]}-${aParts[1]}-${aParts[0]}`); // Converts to "2025-01-01"
+
+                        // Format to "6-Jan-2025"
+                        var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "d-MMM-yyyy" });
+                        return oDateFormat.format(oDate);
                 }
         });
 });

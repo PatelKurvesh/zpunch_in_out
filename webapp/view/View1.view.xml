@@ -13,7 +13,6 @@
                 press="onButtonPress"
             />
         </headerContent>
-       
 
         <VBox
             class="centerCardContainer"
@@ -72,22 +71,21 @@
                                     icon="sap-icon://qr-code"
                                 />
                             </HBox>
-                            <HBox
-                                renderType="Bare"
-                                justifyContent="SpaceBetween"
-                            >
-                                <Button
-                                    text="Leave Request"
-                                    type="Attention"
-                                    width="100%"
-                                    press="onLeaveRequestButtonPress"
-                                    icon="sap-icon://create-leave-request"
-                                />
-                            </HBox>
+                            <Button
+                                text="Leave Request"
+                                type="Attention"
+                                width="100%"
+                                press="onLeaveRequestButtonPress"
+                                icon="sap-icon://create-leave-request"
+                            />
                         </VBox>
                     </f:content>
                 </f:Card>
+
+                
             </VBox>
+
+
 
             <!-- Celebration GIF Container -->
             <VBox
@@ -107,5 +105,7 @@
                 />
             </VBox>
         </VBox>
+
+        
     </Page>
 </mvc:View>

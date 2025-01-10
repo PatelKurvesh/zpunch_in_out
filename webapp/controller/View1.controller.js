@@ -83,9 +83,8 @@ sap.ui.define([
             var oCelebrationVBox = this.byId("idcelebrationVBox");
 
             // Update the GIF source dynamically
-            var oURI = new sap.ui.core.URI(sGifPath);
-            oCelebrationImage.setSrc(oURI);
-            
+            oCelebrationImage.setSrc(sGifPath);
+
 
             // Hide the punch-in/out interface and show the celebration
             oVBox.setVisible(false);
@@ -105,7 +104,30 @@ sap.ui.define([
         },
 
         onLeaveRequestButtonPress: function (oEvent) {
+            if (!this._frag) {
 
-        }
+                this._frag = sap.ui.xmlfragment("zpunchinout.fragments.LeaveRequest", this);
+                this.getView().addDependent(this._frag);
+                this._frag.open();
+            } else {
+                this._frag.open()
+            }
+        },
+
+
+
+        onSendButtonPress: function (oEvent) {
+
+        },
+
+        onCancelButtonPress: function (oEvent) {
+            this._frag.close();
+            if (this._frag) {
+                this._frag.destroy();
+                this._frag = null;
+            }
+        },
+
+
     });
 });

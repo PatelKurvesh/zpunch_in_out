@@ -1,0 +1,60 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+>
+<Dialog title="Leave Request">
+<VBox class="sapUiSmallMargin">
+
+        <Label text="Employee ID" required="true"></Label>
+        <Input type="Number"></Input>
+
+        <Label text="From Date" labelFor="fromDate" required="true"/>
+        <DateRangeSelection ></DateRangeSelection>
+
+        <Label text="Leave Type" labelFor="leaveType" required="true"/>
+        <Select id="idLeaveTypeSelect" width="100%">
+            <items>
+                <core:Item key="" text="Select Leave Type" />
+                <core:Item key="Sick" text="Sick Leave" />
+                <core:Item key="Casual" text="Casual Leave" />
+                <core:Item key="Paid" text="Paid Leave" />
+            </items>
+        </Select>
+
+        <Label text="Leave Priority" labelFor="leavePriority" required="true"/>
+        <Select  width="100%">
+            <items>
+                <core:Item key="" text="Select Leave Priority" />
+                <core:Item key="Heigh" text="Heigh" />
+                <core:Item key="Medium" text="Medium" />
+                <core:Item key="Low" text="Low" />
+            </items>
+        </Select>
+
+        <Label text="Description" labelFor="description" />
+        <TextArea id="idDescriptionTextArea" width="100%" growing="true" growingMaxLines="3" />
+
+        
+    </VBox>
+    <buttons>
+
+            <Button
+                id="idCancelButton"
+                icon="sap-icon://decline"
+                text="Cancel"
+                type="Reject"
+                press="onCancelButtonPress"
+                class="sapUiSmallMargin"
+            />
+            <Button
+                id="idSendButton"
+                text="Send"
+                icon="sap-icon://email"
+                press="onSendButtonPress"
+                type="Accept"
+                
+            />
+            
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

@@ -19,6 +19,7 @@ sap.ui.define([
 					return ValueState.None; // Default state
 			}
 		}
+		
 	};
 
 	return Formatter;

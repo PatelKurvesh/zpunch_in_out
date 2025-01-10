@@ -9,10 +9,10 @@
     <form:SimpleForm>
 
     <Label text="First Name" />
-    <Input type="Text" id="firstName" value="{JSONModel>/FIRST_NAME}"/>
+    <Input  id="firstName" value="{JSONModel>/FIRST_NAME}"/>
 
     <Label text="Last Name" />
-    <Input type="Text" id="lastName" value="{JSONModel>/LAST_NAME}"/>
+    <Input  id="lastName" value="{JSONModel>/LAST_NAME}"/>
 
     <Label text="Gender" />
     <ComboBox id="gender" value="{JSONModel>/GENDER}">
@@ -22,10 +22,10 @@
     </ComboBox>
 
     <Label text="Phone Number" />
-    <Input type="Text" id="phoneNo" value="{JSONModel>/PHONE_NO}"/>
+    <Input type="Number" id="phoneNo" value="{JSONModel>/PHONE_NO}"/>
 
     <Label text="Email" />
-    <Input type="Email" id="email" value="{JSONModel>/EMAIL}"/>
+    <Input type="Email" id="email" value="{JSONModel>/EMAIL}" />
 
 
 </form:SimpleForm>

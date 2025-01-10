@@ -10,10 +10,19 @@
         showNavButton="true"
         navButtonPress="onPageNavButtonPress"
     >
+    <headerContent>
+            <ToolbarSpacer />
+            <Button
+                icon="sap-icon://forward"
+                press="onButtonPressEmployee"
+            />
+        </headerContent>
         <Table
             headerText="Products"
             items="{/EmployeePunchingDetails}"
             class="sapUiResponsiveContentPadding"
+            sticky="ColumnHeaders"
+            
         >
             <headerToolbar>
                 <OverflowToolbar>
@@ -80,7 +89,10 @@
                 />
                 <Text text="{EMAIL}" />
                 <Label
-                    text="{PUNCH_DATE}"
+                     text="{
+        parts: [{path: 'PUNCH_DATE'}],
+        formatter: '.formatCustomDate'
+    }"
                     design="Bold"
                 />
                 <Text text="{PUNCH_IN}" />

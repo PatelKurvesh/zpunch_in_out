@@ -123,6 +123,13 @@
                     "target": [
                         "PunchingDetails"
                     ]
+                },
+                {
+                    "name": "EmployeeDetail",
+                    "pattern": "EmployeeDetail",
+                    "target": [
+                        "EmployeeDetail"
+                    ]
                 }
             ],
             "targets": {
@@ -133,6 +140,10 @@
                 "PunchingDetails": {
                     "id": "View2",
                     "name": "View2"
+                },
+                "EmployeeDetail": {
+                    "id": "EmployeeDetail",
+                    "name": "EmployeeDetail"
                 }
             }
         },
