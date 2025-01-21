@@ -6,10 +6,10 @@
 <VBox class="sapUiSmallMargin">
 
         <Label text="Employee ID" required="true"></Label>
-        <Input type="Number"></Input>
+        <Input type="Number" id="idEmployeeInput"></Input>
 
-        <Label text="From Date" labelFor="fromDate" required="true"/>
-        <DateRangeSelection ></DateRangeSelection>
+        <Label text="Date" labelFor="Date" required="true"/>
+        <DateRangeSelection id="idDateRangeSelection"></DateRangeSelection>
 
         <Label text="Leave Type" labelFor="leaveType" required="true"/>
         <Select id="idLeaveTypeSelect" width="100%">
@@ -22,7 +22,7 @@
         </Select>
 
         <Label text="Leave Priority" labelFor="leavePriority" required="true"/>
-        <Select  width="100%">
+        <Select  width="100%" id="idLeavePrioritySelect">
             <items>
                 <core:Item key="" text="Select Leave Priority" />
                 <core:Item key="Heigh" text="Heigh" />

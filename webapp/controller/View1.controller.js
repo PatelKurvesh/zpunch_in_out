@@ -1,8 +1,9 @@
 sap.ui.define([
     "./App.controller",
-    "sap/ndc/BarcodeScanner"
+    "sap/ndc/BarcodeScanner",
+    "sap/m/MessageBox"
 ], (AppController,
-    BarcodeScanner) => {
+    BarcodeScanner, MessageBox) => {
     "use strict";
 
     return AppController.extend("zpunchinout.controller.View1", {
@@ -117,16 +118,28 @@ sap.ui.define([
 
 
         onSendButtonPress: function (oEvent) {
+            var oDate = sap.ui.getCore().byId("idDateRangeSelection").getValue();
 
-        },
-
-        onCancelButtonPress: function (oEvent) {
-            this._frag.close();
-            if (this._frag) {
-                this._frag.destroy();
-                this._frag = null;
+            var oLeaveReq = {
+                APPLIED_BY_EMP_ID: sap.ui.getCore().byId("idEmployeeInput").getValue(),
+                FROM_DATE: oDate.split("-")[0].trim(),
+                TO_DATE: oDate.split("-")[1].trim(),
+                PRIORITY: sap.ui.getCore().byId("idLeavePrioritySelect").getSelectedKey(),
+                TYPE: sap.ui.getCore().byId("idLeaveTypeSelect").getSelectedKey(),
+                REASON: sap.ui.getCore().byId("idDescriptionTextArea").getValue()
             }
+            var oModel = this.getOwnerComponent().getModel();
+            oModel.create("/LeaveRequests", oLeaveReq, {
+                success: function (odata) {
+                    MessageBox.success("Leave Request Sended Successfully");
+                }.bind(this),
+                error: function (err) {
+                    MessageBox.warning("You don't have that much available leave!!! ")
+                }
+            })
         },
+
+
 
 
     });

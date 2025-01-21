@@ -4,6 +4,7 @@ sap.ui.define([
   "use strict";
 
   return BaseController.extend("zpunchinout.controller.App", {
+    
     onInit() {
     },
     getModel: function (sName) {
@@ -12,5 +13,12 @@ sap.ui.define([
     getRouter: function () {
       return this.getOwnerComponent().getRouter();
     },
+    onCancelButtonPress: function () {
+      this._frag.close();
+      if (this._frag) {
+          this._frag.destroy();
+          this._frag = null;
+      }
+  },
   });
 });

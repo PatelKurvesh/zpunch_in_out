@@ -1,25 +1,29 @@
 sap.ui.define([
         "./App.controller",
         "../formatter/formatter",
-        "sap/m/MessageToast"
+        "sap/m/MessageToast",
+	"sap/m/MessageBox"
 ], function (
-        Controller, Formatter, MessageToast
+        AppController,
+	formatter,
+	MessageToast,
+	MessageBox
 ) {
         "use strict";
 
-        return Controller.extend("zpunchinout.controller.View2", {
+        return AppController.extend("zpunchinout.controller.View2", {
                 /**
                  * @override
                  */
 
-                formatter: Formatter,
+                formatter: formatter,
                 onInit: function () {
                         this._getCount();
                 },
 
                 _getCount: function () {
                         var oModel = this.getOwnerComponent().getModel();
-                        oModel.read("/EmployeePunchingDetails/$count", {
+                        oModel.read("/TimeTrackerView/$count", {
                                 success: function (odata) {
                                         debugger;
                                         var jsonModel = new sap.ui.model.json.JSONModel();
@@ -44,7 +48,7 @@ sap.ui.define([
                         }
                 },
 
-                onAddNewEmp: function () {
+                onSaveEmployeeButtonPress: function () {
                         // Retrieve the form input values
                         const oData = {
                                 FIRST_NAME: sap.ui.getCore().byId("firstName").getValue(),
@@ -65,23 +69,17 @@ sap.ui.define([
                         const oModel = this.getOwnerComponent().getModel();
                         oModel.create("/Employees", oData, {
                                 success: function (odata) {
-                                        sap.m.MessageToast.show("Employee created successfully!");
-                                        this.onCancelDialog();
+                                        MessageBox.success("Employee created successfully!");
+                                        this.onCancelButtonPress();
                                 }.bind(this),
                                 error: function (error) {
-                                        sap.m.MessageToast.show("Error creating employee.");
+                                        MessageBox.error("Error creating employee.");
                                 }
                         });
                 },
 
 
-                onCancelDialog: function () {
-                        this._frag.close();
-                        if (this._frag) {
-                                this._frag.destroy();
-                                this._frag = null;
-                        }
-                },
+               
 
                 onPageNavButtonPress: function (oEvent) {
                         this.getRouter().navTo("RouteView1");
@@ -103,6 +101,8 @@ sap.ui.define([
                         // Format to "6-Jan-2025"
                         var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "d-MMM-yyyy" });
                         return oDateFormat.format(oDate);
-                }
+                },
+
+		
         });
 });

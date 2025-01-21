@@ -32,18 +32,16 @@
 <buttons>
 
             <Button
-                id="idCancelPop"
                 icon="sap-icon://decline"
                 text="Cancel"
                 type="Reject"
-                press="onCancelDialog"
+                press="onCancelButtonPress"
                 class="sapUiSmallMargin"
             />
             <Button
-                id="saveBtn"
-                text="Save"
+                text="Save Employee"
                 icon="sap-icon://save"
-                press="onAddNewEmp"
+                press="onSaveEmployeeButtonPress"
                 type="Accept"
                 
             />

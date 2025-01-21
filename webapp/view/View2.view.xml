@@ -10,19 +10,18 @@
         showNavButton="true"
         navButtonPress="onPageNavButtonPress"
     >
-    <headerContent>
+        <!-- <headerContent>
             <ToolbarSpacer />
             <Button
                 icon="sap-icon://forward"
                 press="onButtonPressEmployee"
             />
-        </headerContent>
+        </headerContent> -->
         <Table
             headerText="Products"
-            items="{/EmployeePunchingDetails}"
+            items="{/TimeTrackerView}"
             class="sapUiResponsiveContentPadding"
             sticky="ColumnHeaders"
-            
         >
             <headerToolbar>
                 <OverflowToolbar>
@@ -46,15 +45,23 @@
                 <Column
                     hAlign="Center"
                     mergeDuplicates="true"
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
                 >
                     <header>
                         <Text text="Email" />
                     </header>
                 </Column>
 
+                <Column hAlign="Center" minScreenWidth="Tablet"
+                    demandPopin="true">
+                    <header>
+                        <Text text="Designation" />
+                    </header>
+                </Column>
                 <Column hAlign="Center">
                     <header>
-                        <Text text="Punch Date" />
+                        <Text text="Expirence" />
                     </header>
                 </Column>
                 <Column
@@ -63,22 +70,17 @@
                     hAlign="Center"
                 >
                     <header>
-                        <Text text="Punch In" />
-                    </header>
-                </Column>
-                <Column
-                    minScreenWidth="Tablet"
-                    demandPopin="true"
-                    hAlign="Center"
-                >
-                    <header>
-                        <Text text="Punch Out" />
+                        <Text text="Gender" />
                     </header>
                 </Column>
 
-                <Column hAlign="Center">
+                <Column
+                    hAlign="Center"
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
+                >
                     <header>
-                        <Text text="Arrival Status" />
+                        <Text text="Phone No." />
                     </header>
                 </Column>
             </columns>
@@ -89,22 +91,11 @@
                 />
                 <Text text="{EMAIL}" />
                 <Label
-                     text="{
-        parts: [{path: 'PUNCH_DATE'}],
-        formatter: '.formatCustomDate'
-    }"
+                    text="{DESIGNATION}"
                     design="Bold"
                 />
-                <Text text="{PUNCH_IN}" />
-                <Text text="{PUNCH_OUT}" />
-
-                <ObjectNumber
-                    number="{ARRIVAL_STATUS}"
-                    state="{
-					path: 'ARRIVAL_STATUS', 
-					formatter: '.formatter.formatArrivalStatus' 
-				}"
-                />
+                <Text text="{EXPERIENCE}" />
+                <Text text="{GENDER}" />
 
                 <Text text="{PHONE_NO}" />
             </ColumnListItem>
