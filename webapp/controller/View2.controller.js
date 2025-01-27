@@ -23,7 +23,7 @@ sap.ui.define([
 
                 _getCount: function () {
                         var oModel = this.getOwnerComponent().getModel();
-                        oModel.read("/TimeTrackerView/$count", {
+                        oModel.read("/EmployeeSet/$count", {
                                 success: function (odata) {
                                         debugger;
                                         var jsonModel = new sap.ui.model.json.JSONModel();
@@ -56,6 +56,12 @@ sap.ui.define([
                                 EMAIL: sap.ui.getCore().byId("email").getValue(),
                                 GENDER: sap.ui.getCore().byId("gender").getValue(),
                                 PHONE_NO: sap.ui.getCore().byId("phoneNo").getValue(),
+                                DESIGNATION: sap.ui.getCore().byId("designation").getValue(),
+                                EXPERIENCE: sap.ui.getCore().byId("experience").getValue(),
+                                MODULE: sap.ui.getCore().byId("module").getValue(),
+                                MODULE_TYPE : sap.ui.getCore().byId("moduleType").getValue(),
+                                
+                                LAUNCHPAD_USER:""
                         };
 
                         // Validation (example: ensure required fields are not empty)
@@ -67,7 +73,7 @@ sap.ui.define([
 
                         // Call the OData service to save the data
                         const oModel = this.getOwnerComponent().getModel();
-                        oModel.create("/Employees", oData, {
+                        oModel.create("/EmployeeSet", oData, {
                                 success: function (odata) {
                                         MessageBox.success("Employee created successfully!");
                                         this.onCancelButtonPress();

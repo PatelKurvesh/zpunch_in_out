@@ -18,7 +18,7 @@ sap.ui.define([
                         sap.m.MessageToast.show("Scanning cancelled.");
                     } else {
                         var sText = result.text;
-                        var empId = parseInt(sText.split(":")[0])
+                        var empId = sText.split(":")[0];
                         var oModel = this.getModel("");
                         oModel.callFunction("/Punch", {
                             urlParameters: {
@@ -51,7 +51,7 @@ sap.ui.define([
                         sap.m.MessageToast.show("Scanning cancelled.");
                     } else {
                         var sText = result.text;
-                        var empId = parseInt(sText.split(":")[0])
+                        var empId = sText.split(":")[0];
                         var oModel = this.getModel("");
                         oModel.callFunction("/Punch", {
                             urlParameters: {

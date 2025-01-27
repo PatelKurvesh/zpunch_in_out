@@ -19,7 +19,7 @@
         </headerContent> -->
         <Table
             headerText="Products"
-            items="{/TimeTrackerView}"
+            items="{/EmployeeSet}"
             class="sapUiResponsiveContentPadding"
             sticky="ColumnHeaders"
         >

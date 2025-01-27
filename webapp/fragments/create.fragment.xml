@@ -27,6 +27,21 @@
     <Label text="Email" />
     <Input type="Email" id="email" value="{JSONModel>/EMAIL}" />
 
+    <Label text="Designation" />
+    <Input  id="designation" value="{JSONModel>/DESIGNATION}" />
+
+    <Label text="Experience" />
+    <Input type="Number" id="experience" value="{JSONModel>/EXPERIENCE}" />
+
+    <Label text="Module" />
+    <Input  id="module" value="{JSONModel>/MODULE}" />
+
+    <Label text="Module Type" />
+    <ComboBox id="moduleType" value="{JSONModel>/MODULE_TYPE}">
+        <core:Item text="Technical"/>
+        <core:Item text="Functional"/>
+    </ComboBox>
+
 
 </form:SimpleForm>
 <buttons>
