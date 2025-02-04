@@ -1,14 +1,64 @@
 <mvc:View
-	controllerName=""
+	controllerName="zpunchinout.controller.EmployeeDetail"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
-	xmlns:c="sap.ui.core"
 	displayBlock="true"
 	height="100%"
 	busyIndicatorDelay="0"
+	xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
 >
 <Page >
+<Text text="{/PunchingDetails/EMP_CODE_EMP_ID}"/>
+<Text text="Employee Punching Details"/>
+            <List id="idPunchingList"
+                  items="{JSONModel>/PunchinData}">
+                <StandardListItem
+                    title="{JSONModel>PUNCH_DATE}"
+                    description="In: {JSONModel>PUNCH_IN}, Out: {JSONModel>PUNCH_OUT}, Duration: {JSONModel>Duration} hrs"/>
+            </List>
+            <Text text="{/PunchingDetails/PUNCH_DATE}"/>
 
-<Label text="heyyyyyyy"></Label>
+            <viz:VizFrame id="idPunchingChart"
+                          height="400px"
+                          width="100%"
+                          vizType="column">
+                <viz:dataset>
+                    <viz.data:FlattenedDataset data="{JSONModel>/PunchinData}">
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition name="Date" value="{JSONModel>PUNCH_DATE}" />
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="Duration (hrs)" value="{JSONModel>Duration}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+                <viz:feeds>
+                    <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Duration (hrs)" />
+                    <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Date" />
+                </viz:feeds>
+            </viz:VizFrame>
+
+
+            <!-- <viz:VizFrame id="GRAPH2"
+                          height="400px"
+                          width="100%"
+                          vizType="column">
+                <viz:dataset>
+                    <viz.data:FlattenedDataset>
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition name="Date" value="{JSONModel>PUNCH_DATE}" />
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="Duration (hrs)" value="{JSONModel>Duration}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+                <viz:feeds>
+                    <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Duration (hrs)" />
+                    <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Date" />
+                </viz:feeds>
+            </viz:VizFrame> -->
 </Page>
 </mvc:View>

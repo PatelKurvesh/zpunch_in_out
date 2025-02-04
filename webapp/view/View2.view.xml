@@ -10,18 +10,21 @@
         showNavButton="true"
         navButtonPress="onPageNavButtonPress"
     >
-        <!-- <headerContent>
+    <headerContent>
             <ToolbarSpacer />
             <Button
                 icon="sap-icon://forward"
-                press="onButtonPressEmployee"
+                press="onButton2Press"
             />
-        </headerContent> -->
+        </headerContent>
+       
         <Table
             headerText="Products"
             items="{/EmployeeSet}"
             class="sapUiResponsiveContentPadding"
             sticky="ColumnHeaders"
+            mode="SingleSelectMaster"
+            selectionChange="onEmployeeSetTableItemPress"
         >
             <headerToolbar>
                 <OverflowToolbar>

@@ -2,12 +2,12 @@ sap.ui.define([
         "./App.controller",
         "../formatter/formatter",
         "sap/m/MessageToast",
-	"sap/m/MessageBox"
+        "sap/m/MessageBox"
 ], function (
         AppController,
-	formatter,
-	MessageToast,
-	MessageBox
+        formatter,
+        MessageToast,
+        MessageBox
 ) {
         "use strict";
 
@@ -25,7 +25,7 @@ sap.ui.define([
                         var oModel = this.getOwnerComponent().getModel();
                         oModel.read("/EmployeeSet/$count", {
                                 success: function (odata) {
-                                        debugger;
+
                                         var jsonModel = new sap.ui.model.json.JSONModel();
                                         jsonModel.setProperty("/count", odata);
                                         this.getView().setModel(jsonModel, "jsonModel");
@@ -59,9 +59,9 @@ sap.ui.define([
                                 DESIGNATION: sap.ui.getCore().byId("designation").getValue(),
                                 EXPERIENCE: sap.ui.getCore().byId("experience").getValue(),
                                 MODULE: sap.ui.getCore().byId("module").getValue(),
-                                MODULE_TYPE : sap.ui.getCore().byId("moduleType").getValue(),
-                                
-                                LAUNCHPAD_USER:""
+                                MODULE_TYPE: sap.ui.getCore().byId("moduleType").getValue(),
+
+                                LAUNCHPAD_USER: ""
                         };
 
                         // Validation (example: ensure required fields are not empty)
@@ -85,7 +85,7 @@ sap.ui.define([
                 },
 
 
-               
+
 
                 onPageNavButtonPress: function (oEvent) {
                         this.getRouter().navTo("RouteView1");
@@ -109,6 +109,21 @@ sap.ui.define([
                         return oDateFormat.format(oDate);
                 },
 
-		
+                
+
+                onEmployeeSetTableItemPress: function (oEvent) {
+                        var oSelectedItem = oEvent.getParameter("listItem");
+                        var oContext = oSelectedItem.getBindingContext();
+                        var sEmployeeID = oContext.sPath.split("'")[1].trim();
+                        // Navigate to View3 with Employee ID
+                        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                        oRouter.navTo("EmployeeDetail", { empId: sEmployeeID });
+                },
+
+                onButton2Press: function (oEvent) {
+                        this.getRouter().navTo("EmployeeDetail");
+                },
+
+
         });
 });

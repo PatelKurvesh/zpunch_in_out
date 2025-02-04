@@ -88,6 +88,11 @@
                         "sap-value-list": "none"
                     }
                 }
+            },
+            "JSONModel": {
+                "type": "sap.ui.model.json.JSONModel",
+                "settings": {},
+                "preload": false
             }
         },
         "resources": {
@@ -126,7 +131,7 @@
                 },
                 {
                     "name": "EmployeeDetail",
-                    "pattern": "EmployeeDetail",
+                    "pattern": "EmployeeDetail({empId})",
                     "target": [
                         "EmployeeDetail"
                     ]
